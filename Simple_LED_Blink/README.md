@@ -51,6 +51,7 @@ GPIO_BSRR_BS_15 could be displayed again in the stm32f4xx_h library at the line 
 Or " | " operation is important for setting high to desired pin without affecting other pins. And " & " operation is used for setting low to desired pin without changing the statement of other pins. 
 
 For collaboration with me my contact addresses are those:
+
 		e_mail     :  arslanhalil33@gmail.com
 		LinkedIn :  https://www.linkedin.com/in/arslanhalil/
 
