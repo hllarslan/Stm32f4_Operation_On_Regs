@@ -15,45 +15,45 @@
 #include "tm_stm32f4_adc.h"
 
 
-#define NUMBER_OF_PINS      			   ((uint8_t) 16)					    /*!< Number of GPIO pins */
-#define GPIOx_MODER_SHIFT   			   ((uint8_t)  2)					  	/*!< MODER register takes 2 bits sequence
+#define NUMBER_OF_PINS      	     ((uint8_t) 16)		/*!< Number of GPIO pins */
+#define GPIOx_MODER_SHIFT   	     ((uint8_t)  2)		/*!< MODER register takes 2 bits sequence
 																																	 therefore for shifting multiplying with
 																																	 2 is necessary */
-#define GPIOx_OSPEEDR_SHIFT  				 ((uint8_t)  2)							/*!< OSPEEDR register requires 2-bits sequence
+#define GPIOx_OSPEEDR_SHIFT  	     ((uint8_t)  2)		/*!< OSPEEDR register requires 2-bits sequence
 																																	 to determine the output speed so for shifting
 																												           multiplying pin position by 2 is must*/
-#define GPIOx_PUPDR_SHIFT     			 ((uint8_t)  2)						  /*!< PUPDR register also requires 2-bits sequence
+#define GPIOx_PUPDR_SHIFT     	     ((uint8_t)  2)		/*!< PUPDR register also requires 2-bits sequence
 																												           when the related configuration is assigned to
 																												           pin number n, it must be shifted n*2 times */
-#define ADC1_BIT_MASK				         ((uint8_t)  8)						  /*!< Bit position 8 is dedicated for ADC1 in RCC->APB2ENR
+#define ADC1_BIT_MASK		     ((uint8_t)  8)		/*!< Bit position 8 is dedicated for ADC1 in RCC->APB2ENR
 																													         register for enabling or disabling clock purpose.*/
-#define NUMBER_OF_EXT_ADC_CHANNELS   ((uint8_t) 16)						  /*!< Total number of external adc channels in STM32F407VG*/
+#define NUMBER_OF_EXT_ADC_CHANNELS   ((uint8_t) 16)	        /*!< Total number of external adc channels in STM32F407VG*/
 
-#define ADC_RESOLUTION_BIT_POS       ((uint8_t) 24)						  /*!< The position of bit sequence dedicated for resolution 
+#define ADC_RESOLUTION_BIT_POS       ((uint8_t) 24)		/*!< The position of bit sequence dedicated for resolution 
 																																	 determination in RCC->CR1 register*/
-#define ADC_DATA_ALIGNMENT_BIT_POS   ((uint8_t) 11)						  /*!< The bit position for data alignment in ADCx->CR2 register*/
+#define ADC_DATA_ALIGNMENT_BIT_POS   ((uint8_t) 11)		/*!< The bit position for data alignment in ADCx->CR2 register*/
 
-#define ADC_CONT_CONV_MODE_BIT_POS   ((uint8_t)  1)					    /*!< The bit position for contionous conversion mode selection*/
+#define ADC_CONT_CONV_MODE_BIT_POS   ((uint8_t)  1)	        /*!< The bit position for contionous conversion mode selection*/
 
-#define ADC_EXT_TRIG_BIT_POS         ((uint8_t) 28)						  /*!< The bit position to determine external trigger */
+#define ADC_EXT_TRIG_BIT_POS         ((uint8_t) 28)	        /*!< The bit position to determine external trigger */
 
-#define ADC_NUM_OF_CONV_BIT_POS      ((uint8_t) 20)							/*!< The bit position in SQR1 register*/
+#define ADC_NUM_OF_CONV_BIT_POS      ((uint8_t) 20)		/*!< The bit position in SQR1 register*/
 
-#define ADC_SCAN_MODE_BIT_POS				 ((uint8_t)  8)							/*!< The scan mode selection bit position in CR1*/
+#define ADC_SCAN_MODE_BIT_POS	     ((uint8_t)  8)		/*!< The scan mode selection bit position in CR1*/
 
-#define ADC_DMA_ACCESS_BIT_POS       ((uint8_t)  8)              /*!< The bit position for DMA access mode selection*/
+#define ADC_DMA_ACCESS_BIT_POS       ((uint8_t)  8)             /*!< The bit position for DMA access mode selection*/
 
-#define ADC_COMMON_MODE_BIT_POS      ((uint8_t)  0)							/*!< The bit position for mode selection in CCR1 register*/
+#define ADC_COMMON_MODE_BIT_POS      ((uint8_t)  0)	   	/*!< The bit position for mode selection in CCR1 register*/
 
-#define ADC_PRESCALER_BIT_POS				 ((uint8_t) 16)							/*!< The bit position of ADC prescaler selection*/
+#define ADC_PRESCALER_BIT_POS	     ((uint8_t) 16)		/*!< The bit position of ADC prescaler selection*/
 
-#define ADC_SAMPLING_DLY_BIT_POS		 ((uint8_t)  8)							/*!< The bit position for delay between two sampling phases*/
+#define ADC_SAMPLING_DLY_BIT_POS     ((uint8_t)  8)		/*!< The bit position for delay between two sampling phases*/
 
-#define ADC_ON_OFF_BIT_POS					 ((uint8_t)  0)							/*!< The bit position for enabling or disabling ADC */
+#define ADC_ON_OFF_BIT_POS	     ((uint8_t)  0)		/*!< The bit position for enabling or disabling ADC */
 
-#define ADC_CONVERSION_START_BIT_POS ((uint8_t) 30)							/*!< The bit position for starting conversion*/
+#define ADC_CONVERSION_START_BIT_POS ((uint8_t) 30)		/*!< The bit position for starting conversion*/
 
-#define ADC_END_OF_CONVERSION        ((uint8_t)  1)							/*!< The bit position for end of conversion*/
+#define ADC_END_OF_CONVERSION        ((uint8_t)  1)		/*!< The bit position for end of conversion*/
 
 typedef enum {
 
